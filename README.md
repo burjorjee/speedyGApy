@@ -3,8 +3,8 @@ speedyGApy
 
 A numpy + matplotlib based port of [speedyGA](http://www.mathworks.com/matlabcentral/fileexchange/15164) to Python. 
 
-SpeedyGApy is a single-file, barebones, vectorized genetic algorithm with uniform crossover (UX), sigma scaling, 
-and stochastic universal sampling that rips. 
+SpeedyGApy is a fast, extensible, single-file, barebones, vectorized genetic algorithm with uniform crossover (UX), sigma scaling, 
+and stochastic universal sampling. 
 
 By default speedyGApy showcases a computational efficiency of the genetic algorithm discussed 
 [here](http://blog.hackingevolution.net/2013/01/20/foga-2013-slides/). It efficiently computes the 
