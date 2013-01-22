@@ -15,7 +15,7 @@ By default speedyGApy showcases a computational efficiency of the genetic algori
 effective attributes of a 4-bit stochastic effective attribute parity problem. Varying the length of the chromosomes 
 does not effect the number of fitness evaluations required for the red dots (marking the locations of the 4 effective attributes) to diverge.
 
-SpeedyGApy depends on numpy and matplotlib which can typically be installed by executing
+SpeedyGApy depends on numpy and matplotlib, which can typically be installed by executing
 
     easy_install numpy 
     easy_install matplotlib
