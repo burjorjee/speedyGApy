@@ -30,10 +30,10 @@ def visualizeRun(avgFitnessHist, maxFitnessHist, maxGens, figNum=2):
 
 def evolve(fitnessFunction,
             length,
-            popSize=500,
-            maxGens=500,
+            popSize,
+            maxGens,
+            probMutation,
             probCrossover=1,
-            probMutation=0.003,
             sigmaScaling=True,
             sigmaScalingCoeff=1,
             SUS=True,
@@ -89,8 +89,8 @@ def evolve(fitnessFunction,
         secondParents = pop[parentIndices[popSize/2:],:]
 
         temp = floor(random.random() * length * maskReposFactor-1)
-        masks = uniformCrossoverMaskRepos[:, temp:temp+length-1]
-        reprodIndices = rand(popSize, 1)<1-probCrossover
+        masks = uniformCrossoverMaskRepos[:, temp:temp+length]
+        reprodIndices = rand(popSize/2)<1-probCrossover
         masks[reprodIndices, :] = False
         firstKids = firstParents
         firstKids[masks] = secondParents[masks]
@@ -99,7 +99,7 @@ def evolve(fitnessFunction,
         pop = vstack((firstKids, secondKids))
 
         temp = floor(random.random()*length*(maskReposFactor-1))
-        masks = mutMaskRepos[:, temp:temp+length-1]
+        masks = mutMaskRepos[:, temp:temp+length]
         pop[masks] = pop[masks] + 1
         pop = remainder(pop, 2)
 
@@ -112,8 +112,8 @@ def stochasticEffectiveAttributeParity(pop, pivLoci):
 def seapVisualizeGen(pop, gen, avgFitness, maxFitness, pivLoci, figNum=1):
     popSize,length = pop.shape
     f = figure(figNum)
-    hold(False)
     bitFreqs = pop.sum(axis=0).astype('float')/popSize
+    hold(False)
     plot(arange(length), bitFreqs,'b.', markersize=2)
     hold(True)
     plot(pivLoci, bitFreqs[pivLoci], 'r.', markersize=15)
@@ -127,7 +127,12 @@ def seapVisualizeGen(pop, gen, avgFitness, maxFitness, pivLoci, figNum=1):
 def seapEvolve():
     length = 1000
     pivLoci = floor(rand(4)*length).astype('int16')
-    evolve(partial(stochasticEffectiveAttributeParity,pivLoci=pivLoci), length,
+    evolve(partial(stochasticEffectiveAttributeParity,pivLoci=pivLoci),
+        length,
+        popSize=500,
+        maxGens=500,
+        probMutation=0.005,
+        probCrossover=1,
         visualizeGen=partial(seapVisualizeGen,pivLoci=pivLoci, figNum=1),
         visualizeRun=partial(visualizeRun,figNum=2))
 
@@ -147,7 +152,7 @@ def staircaseFunction(pop, L, V, delta, sigma):
 
 def staircaseFunctionVisualize(pop, gen, avgFitness, maxFitness, L, figNum=1):
     m,n = L.shape
-    colorMap = {0:'r', 1:'b', 2:'g', 3:'c', 4:'m'}
+    colorMap = {0:'r', 1:'b', 2:'g', 3:'c', 4:'m', 5:'y', 6:'k'}
     popSize,length = pop.shape
     f = figure(figNum)
     hold(False)
@@ -155,7 +160,7 @@ def staircaseFunctionVisualize(pop, gen, avgFitness, maxFitness, L, figNum=1):
     plot(arange(length), bitFreqs,'b.', markersize=2)
     hold(True)
     for i in xrange(L.shape[0]):
-        plot(L[i,:], bitFreqs[L[i,:]], colorMap[i%n]+'.', markersize=30-2*i)
+        plot(L[i,:], bitFreqs[L[i,:]], colorMap[i%len(colorMap)]+'.', markersize=30-2*i)
     axis([0, length, 0, 1])
     title("Generation = %s, Average Fitness = %0.3f " % (gen,avgFitness))
     ylabel('Frequency of the Bit 1')
@@ -173,10 +178,14 @@ def staircaseFunctionEvolve():
     V=ones(L.shape, dtype='int8')
     evolve(partial(staircaseFunction, L=L, V=V, delta=0.3, sigma=1),
         length,
+        popSize=500,
+        maxGens=500,
+        probMutation=0.005,
+        probCrossover=1,
         visualizeGen=partial(staircaseFunctionVisualize,L=L, figNum=3),
         visualizeRun=partial(visualizeRun, figNum=4))
-######################################
 
+######################################
 if __name__=="__main__":
     seapEvolve()
     staircaseFunctionEvolve()
