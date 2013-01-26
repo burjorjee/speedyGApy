@@ -26,7 +26,7 @@ SpeedyGA Usage Instructions:
                        [--probMutation PROBMUTATION] [--popSize POPSIZE]
                        [--bitstringLength BITSTRINGLENGTH] [--gens GENS]
     
-    Run SpeedyGA on fitness functions tailored to provide proof of concept for the
+    Run SpeedyGA on a fitness function tailored to provide proof of concept for the
     Hyperclimbing Hypothesis.
     
     optional arguments:
