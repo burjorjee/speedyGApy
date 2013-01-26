@@ -26,8 +26,9 @@ SpeedyGA Usage Instructions:
                        [--probMutation PROBMUTATION] [--popSize POPSIZE]
                        [--bitstringLength BITSTRINGLENGTH] [--gens GENS]
     
-    Run SpeedyGA on a fitness function tailored to provide proof of concept for the
-    Hyperclimbing Hypothesis.
+    Run SpeedyGA on `seap` or `staircase`, two fitness functions tailored to
+    provide proof of concept for the Hyperclimbing Hypothesis. More details at
+    http://blog.hackingevolution.net/2013/01/20/foga-2013-slides/
     
     optional arguments:
       -h, --help            show this help message and exit
@@ -42,4 +43,5 @@ SpeedyGA Usage Instructions:
       --bitstringLength BITSTRINGLENGTH
                             Length of a chromosome in the population (default:500)
       --gens GENS           The number of generations (default:500)
+      
 Enjoy!
