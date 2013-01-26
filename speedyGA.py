@@ -186,7 +186,7 @@ def staircaseFunctionEvolve(length, numSteps, order, delta, sigma, probMutation,
 
 ######################################
 if __name__=="__main__":
-    parser = argparse.ArgumentParser(description='Run SpeedyGA on fitness functions tailored to provide proof of concept for the Hyperclimbing Hypothesis.')
+    parser = argparse.ArgumentParser(description='Run SpeedyGA on a fitness function tailored to provide proof of concept for the Hyperclimbing Hypothesis.')
     parser.add_argument('--fitnessFunction', default="staircase", choices=['staircase','seap'], help="The fitness function to use (default: staircase).")
     parser.add_argument('--probCrossover', default=1, help="Number between 0 and 1 representing the fraction of the population subject to crossover (default:1)" )
     parser.add_argument('--probMutation', default=0.005, help="The per bit mutation probability (default:0.005)" )
