@@ -1,3 +1,5 @@
+#!/usr/local/bin/python
+import argparse
 from functools import partial
 from random import random
 from matplotlib.pyplot import figure, plot, xlabel, ylabel, title, axis, hold
@@ -17,12 +19,12 @@ def visualizeGen(pop, gen, avgFitness, maxFitness, figNum=1):
     f.canvas.draw()
     f.show()
 
-def visualizeRun(avgFitnessHist, maxFitnessHist, maxGens, figNum=2):
+def visualizeRun(avgFitnessHist, maxFitnessHist, figNum=2):
     f = figure(figNum)
     hold(False)
-    plot(arange(maxGens + 1), avgFitnessHist, 'k-')
+    plot(arange(len(avgFitnessHist)), avgFitnessHist, 'k-')
     hold(True)
-    plot(arange(maxGens + 1), maxFitnessHist, 'c-')
+    plot(arange(len(maxFitnessHist)), maxFitnessHist, 'c-')
     xlabel('Generation')
     ylabel('Fitness')
     f.show()
@@ -124,15 +126,14 @@ def seapVisualizeGen(pop, gen, avgFitness, maxFitness, pivLoci, figNum=1):
     f.canvas.draw()
     f.show()
 
-def seapEvolve():
-    length = 1000
+def seapEvolve(length, probMutation, probCrossover, popSize, maxGens):
     pivLoci = floor(rand(4)*length).astype('int16')
     evolve(partial(stochasticEffectiveAttributeParity,pivLoci=pivLoci),
         length,
-        popSize=500,
-        maxGens=500,
-        probMutation=0.005,
-        probCrossover=1,
+        popSize,
+        maxGens,
+        probMutation,
+        probCrossover,
         visualizeGen=partial(seapVisualizeGen,pivLoci=pivLoci, figNum=1),
         visualizeRun=partial(visualizeRun,figNum=2))
 
@@ -168,25 +169,46 @@ def staircaseFunctionVisualize(pop, gen, avgFitness, maxFitness, L, figNum=1):
     f.canvas.draw()
     f.show()
 
-def staircaseFunctionEvolve():
-    length = 500
-    n = 4
+def staircaseFunctionEvolve(length, numSteps, order, delta, sigma, probMutation, probCrossover, popSize, maxGens):
     L = arange(length)
     random.shuffle(L)
-    L=L[:n*10]
-    L.shape=(-1,n)
+    L=L[:order*numSteps]
+    L.shape=(-1,order)
     V=ones(L.shape, dtype='int8')
-    evolve(partial(staircaseFunction, L=L, V=V, delta=0.3, sigma=1),
+    evolve(partial(staircaseFunction, L=L, V=V, delta=delta, sigma=sigma),
         length,
-        popSize=500,
-        maxGens=500,
-        probMutation=0.005,
-        probCrossover=1,
+        popSize,
+        maxGens,
+        probMutation,
+        probCrossover=probCrossover,
         visualizeGen=partial(staircaseFunctionVisualize,L=L, figNum=3),
         visualizeRun=partial(visualizeRun, figNum=4))
 
 ######################################
 if __name__=="__main__":
-    seapEvolve()
-    staircaseFunctionEvolve()
+    parser = argparse.ArgumentParser(description='Run SpeedyGA on fitness functions tailored to provide proof of concept for the Hyperclimbing Hypothesis.')
+    parser.add_argument('--fitnessFunction', default="staircase", choices=['staircase','seap'], help="The fitness function to use (default: staircase).")
+    parser.add_argument('--probCrossover', default=1, help="Number between 0 and 1 representing the fraction of the population subject to crossover (default:1)" )
+    parser.add_argument('--probMutation', default=0.005, help="The per bit mutation probability (default:0.005)" )
+    parser.add_argument('--popSize', default=500, help="Size of the population (default:500)")
+    parser.add_argument('--bitstringLength', default=500, help="Length of a chromosome in the population (default:500)")
+    parser.add_argument('--gens', default=500, help="The number of generations (default:500)")
+
+    args = parser.parse_args()
+    if args.fitnessFunction=="seap":
+        seapEvolve(length=args.bitstringLength,
+                    probMutation=args.probMutation,
+                    probCrossover=args.probCrossover,
+                    popSize=args.popSize,
+                    maxGens=args.gens)
+    else:
+        staircaseFunctionEvolve(length=args.bitstringLength,
+                                numSteps=10,
+                                order=4,
+                                delta=0.3,
+                                sigma=1,
+                                probCrossover=args.probCrossover,
+                                probMutation=args.probMutation,
+                                popSize=args.popSize,
+                                maxGens=args.gens)
     raw_input('Hit Enter to end ...')
