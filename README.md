@@ -5,7 +5,7 @@ A numpy + matplotlib based port of [speedyGA](http://www.mathworks.com/matlabcen
 
 SpeedyGApy is a fast, extensible, single-file, barebones, vectorized genetic algorithm with uniform crossover, sigma scaling, and stochastic universal sampling. 
 
-The script can be used to reproduce the experiments that form the basis for the [Hyperclimbing Hypothesis](http://s3.amazonaws.com/burjorjee/www/hyperclimbing_hypothesis_2013.pdf)---a new explanation for adaptation in genetic algorithms with uniform crossover.
+When run from the command line, speedyGA.py can reproduces the experiments that form the basis for the [Hyperclimbing Hypothesis](http://s3.amazonaws.com/burjorjee/www/hyperclimbing_hypothesis_2013.pdf)---a new explanation for adaptation in genetic algorithms with uniform crossover.
 
 + The function `seapEvolve()` uses the the 4-Bit Stochastic Effective Attribute Parity problem discussed [here](http://blog.hackingevolution.net/2013/01/20/foga-2013-slides/) and [here](http://blog.hackingevolution.net/2009/06/29/red-dots-blue-dots/), and the advanced visualization capabilities of matplotlib to showcase a computational efficiency of the genetic algorithm. Check for yourself that varying the length of the chromosomes does not affect the expected number of fitness evaluations required for the red dots, marking the locations of the 4 effective attributes, to diverge. Changing the effective attributes, i.e. varying the location of the red dots, also has no effect on the expected time-to-divergence. 
 
