@@ -1,4 +1,3 @@
-#!/usr/local/bin/python
 import argparse
 from functools import partial
 from random import random
@@ -105,7 +104,7 @@ def evolve(fitnessFunction,
         pop[masks] = pop[masks] + 1
         pop = remainder(pop, 2)
 
-    visualizeRun(avgFitnessHist, maxFitnessHist, maxGens)
+    visualizeRun(avgFitnessHist, maxFitnessHist)
 
 ########## Stochastic Effective Attribute Parity ###########
 def stochasticEffectiveAttributeParity(pop, pivLoci):
@@ -186,13 +185,15 @@ def staircaseFunctionEvolve(length, numSteps, order, delta, sigma, probMutation,
 
 ######################################
 if __name__=="__main__":
-    parser = argparse.ArgumentParser(description='Run SpeedyGA on a fitness function tailored to provide proof of concept for the Hyperclimbing Hypothesis.')
+    parser = argparse.ArgumentParser(description='Run SpeedyGA on `seap` or `staircase`, two fitness functions '+
+                                                 'tailor made to provide proof of concept for the Hyperclimbing Hypothesis. '+
+                                                 'More details at http://blog.hackingevolution.net/2013/01/20/foga-2013-slides/')
     parser.add_argument('--fitnessFunction', default="staircase", choices=['staircase','seap'], help="The fitness function to use (default: staircase).")
-    parser.add_argument('--probCrossover', default=1, help="Number between 0 and 1 representing the fraction of the population subject to crossover (default:1)" )
-    parser.add_argument('--probMutation', default=0.005, help="The per bit mutation probability (default:0.005)" )
-    parser.add_argument('--popSize', default=500, help="Size of the population (default:500)")
-    parser.add_argument('--bitstringLength', default=500, help="Length of a chromosome in the population (default:500)")
-    parser.add_argument('--gens', default=500, help="The number of generations (default:500)")
+    parser.add_argument('--probCrossover', type =float, default=1, help="Number between 0 and 1 representing the fraction of the population subject to crossover (default:1)" )
+    parser.add_argument('--probMutation', type =float, default=0.005, help="The per bit mutation probability (default:0.005)" )
+    parser.add_argument('--popSize', type =int, default=500, help="Size of the population (default:500)")
+    parser.add_argument('--bitstringLength', type =int, default=500, help="Length of a chromosome in the population (default:500)")
+    parser.add_argument('--gens', type =int, default=500, help="The number of generations (default:500)")
 
     args = parser.parse_args()
     if args.fitnessFunction=="seap":
