@@ -9,7 +9,7 @@ When run from the command line, speedyGA.py reproduces the experiments that form
 
 + The function `seapEvolve()` uses the the 4-Bit Stochastic Effective Attribute Parity problem discussed [here](http://blog.hackingevolution.net/2013/01/20/foga-2013-slides/) and [here](http://blog.hackingevolution.net/2009/06/29/red-dots-blue-dots/), and the visualization capabilities of matplotlib to showcase a computational efficiency of the genetic algorithm. Check for yourself that varying the length of the chromosomes does not affect the expected number of fitness evaluations required for the red dots, marking the locations of the 4 effective attributes, to diverge. Changing the effective attributes, i.e. varying the location of the red dots, also has no effect on the expected time-to-divergence. 
 
-+ The function `staircaseFunctionEvolve()` provides proof of concept that a UGA is capable of using the computational power showcased by `seapEvolve()` to implement a global optimization heuristic called [hyperclimbing](http://s3.amazonaws.com/burjorjee/www/hyperclimbing_hypothesis_2013.pdf)
++ The function `staircaseFunctionEvolve()` provides proof of concept that a genetic algorithm is capable of using the computational power showcased by `seapEvolve()` to implement a global optimization heuristic called [hyperclimbing](http://s3.amazonaws.com/burjorjee/www/hyperclimbing_hypothesis_2013.pdf)
 
 SpeedyGApy depends on the Python packages numpy and matplotlib, which can typically be installed by executing 
 
