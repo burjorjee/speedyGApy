@@ -40,4 +40,3 @@ SpeedyGA Usage Instructions:
       --gens GENS           The number of generations (default:500)
       
 Enjoy!<br/>
-[@evohackr](https://twitter.com/evohackr)
