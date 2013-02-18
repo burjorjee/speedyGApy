@@ -1,12 +1,12 @@
 speedyGApy
 ==========
 
-SpeedyGApy is a fast, extensible, single-file, barebones, vectorized genetic algorithm with uniform crossover, sigma scaling, and stochastic universal sampling. It is a port of the original [SpeedyGA](http://www.mathworks.com/matlabcentral/fileexchange/15164) from Matlab to Python. SpeedyGApy depends on the Python packages numpy and matplotlib, which can typically be installed by executing 
+SpeedyGApy is a fast, extensible, barebones, vectorized genetic algorithm with uniform crossover, sigma scaling, and stochastic universal sampling. It is a port of the original [SpeedyGA](http://www.mathworks.com/matlabcentral/fileexchange/15164) from Matlab to Python. SpeedyGApy depends on the Python packages numpy and matplotlib, which can typically be installed by executing 
 
-    easy_install numpy 
-    easy_install matplotlib
+    pip install numpy 
+    pip install matplotlib
 
-On POSIX systems, you may be required to run `easy_install` as a superuser.
+On POSIX systems, you may be required to run `pip` as a superuser. If your Python installation doesn't come with pip, you can install it by running `easy_install pip`. Here again, you may have to run easy_install as a superuser.
 
 SpeedyGApy contains two sample fitness functions that serve as examples and also allow users to reproduce the experiments that form the basis for the [Hyperclimbing Hypothesis](http://s3.amazonaws.com/burjorjee/www/hyperclimbing_hypothesis_2013.pdf)---an explanation for adaptation in genetic algorithms with uniform crossover.
 
