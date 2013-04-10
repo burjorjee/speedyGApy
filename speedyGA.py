@@ -190,8 +190,8 @@ if __name__=="__main__":
                                                  'More details at http://blog.hackingevolution.net/2013/01/20/foga-2013-slides/')
     parser.add_argument('--fitnessFunction', default="staircase", choices=['staircase','seap'], help="The fitness function to use (default: staircase).")
     parser.add_argument('--probCrossover', type =float, default=1, help="Number between 0 and 1 representing the fraction of the population subject to crossover (default:1)" )
-    parser.add_argument('--probMutation', type =float, default=0.003, help="The per bit mutation probability (default:0.005)" )
-    parser.add_argument('--popSize', type =int, default=1000, help="Size of the population (default:500)")
+    parser.add_argument('--probMutation', type =float, default=0.003, help="The per bit mutation probability (default:0.003)" )
+    parser.add_argument('--popSize', type =int, default=1000, help="Size of the population (default:1000)")
     parser.add_argument('--bitstringLength', type =int, default=500, help="Length of a chromosome in the population (default:500)")
     parser.add_argument('--gens', type =int, default=500, help="The number of generations (default:500)")
 
