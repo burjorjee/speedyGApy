@@ -6,7 +6,7 @@ SpeedyGApy is a fast, extensible, barebones, vectorized genetic algorithm with u
     pip install numpy 
     pip install matplotlib
 
-On POSIX systems, you may be required to run `pip` as a superuser. If your Python installation doesn't come with pip, you can install it by running `easy_install pip`. Here again, you may have to run easy_install as a superuser.
+On POSIX systems, you may be required to run `pip` as a superuser. If your Python installation doesn't come with pip, you can install it by running `easy_install pip`.
 
 SpeedyGApy contains two sample fitness functions that serve as examples and also allow users to reproduce the experiments that form the basis for the [Hyperclimbing Hypothesis](http://s3.amazonaws.com/burjorjee/www/hyperclimbing_hypothesis_2013.pdf)---an explanation for adaptation in genetic algorithms with uniform crossover.
 
