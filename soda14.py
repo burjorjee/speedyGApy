@@ -1,5 +1,5 @@
 from contextlib import closing
-from matplotlib.pyplot import plot, figure, hold, axis, ylabel, xlabel, savefig
+from matplotlib.pyplot import plot, figure, hold, axis, ylabel, xlabel, savefig, title
 from numpy import sort, logical_xor, transpose, logical_not
 from numpy.numarray.functions import cumsum, zeros
 from numpy.random import rand, shuffle
@@ -9,6 +9,19 @@ import cloud
 from durus.file_storage import FileStorage
 from durus.connection import Connection
 
+def bitFreqVisualizer(effectiveAttrIndices, bitFreqs, gen):
+    f = figure(1)
+    n = len(bitFreqs)
+    hold(False)
+    plot(range(n), bitFreqs,'b.', markersize=10)
+    hold(True)
+    plot(effectiveAttrIndices, bitFreqs[effectiveAttrIndices],'r.', markersize=10)
+    axis([0, n-1, 0, 1])
+    title("Generation = %s" % (gen,))
+    ylabel('Frequency of the Bit 1')
+    xlabel('Locus')
+    f.canvas.draw()
+    f.show()
 
 def showExperimentTimeStamps():
     with closing(FileStorage("soda_results.durus")) as durus:
@@ -30,8 +43,8 @@ def neap_uga(m, n, gens, probMutation, effectiveAttrIndices, probMisclassificati
         if bitFreqVisualizer:
             bitFreqVisualizer(bitFreqs,t)
 
-        fitnessVals = mod(pop[:,effectiveAttrIndices].astype('byte').sum(axis=1) +
-                          (rand(m)<probMisclassification).astype('byte'),2)
+        fitnessVals = mod(pop[:, effectiveAttrIndices].astype('byte').sum(axis=1) +
+                          (rand(m) < probMisclassification).astype('byte'),2)
         totalFitness = sum (fitnessVals)
         cumNormFitnessVals = cumsum(fitnessVals).astype('float')/totalFitness
 
@@ -44,15 +57,15 @@ def neap_uga(m, n, gens, probMutation, effectiveAttrIndices, probMisclassificati
             parentIndices[idx] = ctr
         shuffle(parentIndices)
 
-        crossoverMasks = rand(m, n)<0.5
-        newPop = zeros((m,n), dtype='bool')
-        newPop[crossoverMasks] = pop[parentIndices[:m],:][crossoverMasks]
-        newPop[logical_not(crossoverMasks)] = pop[parentIndices[m:],:][logical_not(crossoverMasks)]
+        crossoverMasks = rand(m, n) < 0.5
+        newPop = zeros((m, n), dtype='bool')
+        newPop[crossoverMasks] = pop[parentIndices[:m], :][crossoverMasks]
+        newPop[logical_not(crossoverMasks)] = pop[parentIndices[m:], :][logical_not(crossoverMasks)]
 
-        mutationMasks = rand(m,n)<probMutation
+        mutationMasks = rand(m, n)<probMutation
         pop = logical_xor(newPop,mutationMasks)
 
-    return bitFreqHist[0,:], bitFreqHist[-1,:]
+    return bitFreqHist[0, :], bitFreqHist[-1, :]
 
 def f(gens):
         k = 7
@@ -92,7 +105,7 @@ def run_trials():
     raw_input()
 
     for i, result in enumerate(results):
-        firstLocusFreqsHists[i,:], lastLocusFreqsHists[i,:] = result
+        firstLocusFreqsHists[i, :], lastLocusFreqsHists[i, :] = result
 
     with closing(FileStorage("soda_results.durus")) as durus:
         conn = Connection(durus)
@@ -119,7 +132,7 @@ def render_results(timestamp=None):
         freqsHists = freqsHists[:,:801]
         f = figure(i)
         hold(False)
-        plot(transpose(freqsHists), color = 'grey')
+        plot(transpose(freqsHists), color='grey')
         hold(True)
         maxGens = freqsHists.shape[1]-1
         plot([0, maxGens], [.05,.05], 'k--')
