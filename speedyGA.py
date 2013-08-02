@@ -64,7 +64,7 @@ def evolve(fitnessFunction,
         if sigmaScaling:
             sigma = std(fitnessVals)
             if sigma:
-                fitnessVals = 1 + (fitnessVals - fitnessVals.mean()) / sigmaScalingCoeff * sigma
+                fitnessVals = 1 + (fitnessVals - fitnessVals.mean()) / (sigmaScalingCoeff * sigma)
                 fitnessVals[fitnessVals<0] = 0
             else:
                 fitnessVals = ones(1,popSize)
